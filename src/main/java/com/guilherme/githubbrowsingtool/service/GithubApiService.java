@@ -27,6 +27,12 @@ public class GithubApiService {
 	
 	private static ParameterizedTypeReference<Map<String, String>> MAPDTO = new ParameterizedTypeReference<Map<String, String>>(){};
 
+	/**
+	 * Get the Github access_token
+	 * @param code
+	 * @return String: access_token
+	 * @throws Exception
+	 */
 	public String getAccessToken(String code) throws Exception {
 		RestTemplate restTemplate = new RestTemplate();
 		UriComponentsBuilder builder = UriComponentsBuilder.fromUriString("https://github.com/login/oauth/access_token")
@@ -39,10 +45,15 @@ public class GithubApiService {
 		if(response.getStatusCode() != HttpStatus.OK) {
 			throw new Exception("Error during request of access_token.");
 		}
-		
 		return response.getBody().get("access_token");
 	}
 	
+	/**
+	 * Get user info for the access_token provided
+	 * @param accessToken
+	 * @return Map<String, String>: Map representing the response Json
+	 * @throws Exception
+	 */
 	public Map<String, String> getUserInfo(String accessToken) throws Exception {
 		RestTemplate restTemplate = new RestTemplate();
 		UriComponentsBuilder builder = UriComponentsBuilder.fromUriString("https://api.github.com/user")
@@ -58,10 +69,19 @@ public class GithubApiService {
 		return response.getBody();
 	}
 	
-	public List<Map<String, String>>  getUserRepos(String accessToken) throws Exception {
+	/**
+	 * Get all repositories for the access_token provided
+	 * @param accessToken
+	 * @param page
+	 * @return List<Map<String, String>>: List of maps, where each map represents the json structure of a single repo
+	 * @throws Exception
+	 */
+	public List<Map<String, String>>  getUserRepos(String accessToken, int page) throws Exception {
 		RestTemplate restTemplate = new RestTemplate();
 		UriComponentsBuilder builder = UriComponentsBuilder.fromUriString("https://api.github.com/user/repos")
-				.queryParam("access_token", accessToken);
+				.queryParam("access_token", accessToken)
+				.queryParam("per_page", 100)
+				.queryParam("page", page);
 		
 		HttpEntity<String> entity = new HttpEntity<String>(new HttpHeaders());
 		ResponseEntity<String> response = restTemplate.exchange(builder.toUriString(), HttpMethod.GET, entity, String.class);

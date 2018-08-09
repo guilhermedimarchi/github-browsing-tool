@@ -1,5 +1,6 @@
 package com.guilherme.githubbrowsingtool.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -30,6 +31,12 @@ public class BrowsingController {
 	@Autowired
 	private GithubApiService githubApiService;
 	
+	/**
+	 * Gives to the view the URI to authorize using Github Oauth.
+	 * Uses the client_id, redirect_uri and scopes provided in application.properties
+	 * @param model
+	 * @return login view
+	 */
 	@GetMapping("/")
 	public String login(Model model) {
 		UriComponentsBuilder uriBuilder = UriComponentsBuilder.fromHttpUrl("https://github.com/login/oauth/authorize");
@@ -40,11 +47,27 @@ public class BrowsingController {
 		return "login";
 	}
 	
-	@GetMapping("index")
+	/**
+	 * When the redirect uri from Github Oatuh is called, receives the code to request the access_token
+	 * and get user info and repositories list. 
+	 * @param model
+	 * @param code
+	 * @return index view
+	 * @throws Exception
+	 */
+	@GetMapping("/index")
 	public String index(Model model, @RequestParam("code") String code) throws Exception {
 		String accessToken = githubApiService.getAccessToken(code);
 		Map<String, String> userInfo = githubApiService.getUserInfo(accessToken);
-		List<Map<String, String>> userRepos = githubApiService.getUserRepos(accessToken);
+		
+		int page = 1;
+		List<Map<String, String>> userRepos = new ArrayList<>();
+		boolean noMoreRepos = false;
+		do {
+			List<Map<String, String>> aux = githubApiService.getUserRepos(accessToken, page++);
+			if(aux.isEmpty()) noMoreRepos = true;
+			userRepos.addAll(aux);
+		} while (!noMoreRepos);
 		
 		List<RepoDTO> repos = userRepos.stream()
 				.map(item -> new RepoDTO(item.get("name"), item.get("html_url")))

@@ -1,0 +1,31 @@
+<!DOCTYPE html >
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>GitHub Browsing Tool</title>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta name="viewport" content="width=device-width"/>
+</head>
+<body>
+	<h1 th:text="${username}"></h1>
+	<img th:src="@{${avatar_url}}"/>
+	<table>
+		<thead>
+		  <tr>
+		     <th>Name</th>
+		     <th>Url</th>
+		  </tr>
+		 </thead>
+	    <tbody>
+	      <tr th:each="repo : ${repos}">
+	        <td th:text="${repo.getName()}"></td>
+	        <td th:text="${repo.getUrl()}"></td>
+	      </tr>
+	    </tbody>
+  	</table>
+  	<footer>
+	  	<p>Created by: <a href="https://github.com/guilhermedimarchi">https://github.com/guilhermedimarchi</a></p>
+	  	<p>Source code: <a href="https://github.com/guilhermedimarchi/github-browsing-tool">https://github.com/guilhermedimarchi/github-browsing-tool</a></p>
+	</footer>
+</body>
+</html>

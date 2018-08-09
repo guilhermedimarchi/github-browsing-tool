@@ -57,6 +57,7 @@ public class BrowsingController {
 	 */
 	@GetMapping("/index")
 	public String index(Model model, @RequestParam("code") String code) throws Exception {
+		
 		String accessToken = githubApiService.getAccessToken(code);
 		Map<String, String> userInfo = githubApiService.getUserInfo(accessToken);
 		

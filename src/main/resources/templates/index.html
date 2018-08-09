@@ -4,28 +4,39 @@
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
     <meta name="viewport" content="width=device-width"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
     <title>GitHub Browsing Tool</title>
 </head>
 <body>
-	<h1 th:text="${username}"></h1>
-	<img th:src="@{${avatar_url}}"/>
-	<table>
-		<thead>
-		  <tr>
-		     <th>Name</th>
-		     <th>Url</th>
-		  </tr>
-		 </thead>
-	    <tbody>
-	      <tr th:each="repo : ${repos}">
-	        <td th:text="${repo.getName()}"></td>
-	        <td th:text="${repo.getUrl()}"></td>
-	      </tr>
-	    </tbody>
-  	</table>
-  	<footer>
-	  	<p>Created by: <a href="https://github.com/guilhermedimarchi">https://github.com/guilhermedimarchi</a></p>
-	  	<p>Source code: <a href="https://github.com/guilhermedimarchi/github-browsing-tool">https://github.com/guilhermedimarchi/github-browsing-tool</a></p>
-	</footer>
+	<div class="container-fluid">
+		<div>
+			<img th:src="@{${avatar_url}}" style="width: 200px; height: 200px; float: left"/>
+			<h1 th:text="${username}"></h1>
+		</div>
+		
+		<div style="clear: left;">
+			<h3>List of repositories: </h3>
+			<table class="table table-striped table-bordered">
+				<thead>
+				  <tr>
+				     <th>Name</th>
+				     <th>Url</th>
+				  </tr>
+				 </thead>
+			    <tbody>
+			      <tr th:each="repo : ${repos}">
+			        <td th:text="${repo.getName()}"></td>
+			        <td th:text="${repo.getUrl()}"></td>
+			      </tr>
+			    </tbody>
+		  	</table>
+		</div>
+		
+	  	<footer>
+		  	<p>Created by: <a href="https://github.com/guilhermedimarchi">https://github.com/guilhermedimarchi</a></p>
+		  	<p>Source code: <a href="https://github.com/guilhermedimarchi/github-browsing-tool">https://github.com/guilhermedimarchi/github-browsing-tool</a></p>
+		</footer>
+	</div>
 </body>
 </html>

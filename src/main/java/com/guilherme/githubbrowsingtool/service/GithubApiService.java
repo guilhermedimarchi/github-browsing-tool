@@ -65,7 +65,6 @@ public class GithubApiService {
 		if(response.getStatusCode() != HttpStatus.OK) {
 			throw new Exception("Error during request of user info.");
 		}
-		
 		return response.getBody();
 	}
 	

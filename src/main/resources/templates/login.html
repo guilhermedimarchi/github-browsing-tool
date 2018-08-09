@@ -4,9 +4,23 @@
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
     <meta name="viewport" content="width=device-width"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
     <title>GitHub Browsing Tool</title>
 </head>
 <body>
-	<a th:href="${urlToGithubOauth}">Login with Github</a>
+	<div class="container-fluid">
+	 	<h3>Welcome to Github Browsing Tool</h3>
+		
+		<a th:href="${urlToGithubOauth}" class="button btn btn-dark">
+			<i class="fab fa-github"></i> Login with Github
+		</a>
+		
+	  	<footer style="margin-top: 20px;">
+		  	<p>Created by: <a href="https://github.com/guilhermedimarchi">https://github.com/guilhermedimarchi</a></p>
+		  	<p>Source code: <a href="https://github.com/guilhermedimarchi/github-browsing-tool">https://github.com/guilhermedimarchi/github-browsing-tool</a></p>
+		</footer>
+	</div>
+
 </body>
 </html>
